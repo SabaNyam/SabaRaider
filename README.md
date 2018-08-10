@@ -5,7 +5,8 @@
 - [SabaRaider](#sabaraider)
 	- [できること](#できること)
 	- [他救援ツールとの違い](#他救援ツールとの違い)
-	- [ファイル構成](#ファイル構成)
+	- [ダウンロード](#ダウンロード)
+	- [主要なファイル](#主要なファイル)
 	- [使用方法](#使用方法)
 		- [0.SabaRaider.exeをダブルクリックで起動](#0sabaraiderexeをダブルクリックで起動)
 		- [1.ツイッター認証](#1ツイッター認証)
@@ -34,7 +35,12 @@
 Pythonの実行環境とTwitterの自前APIKeyが必要で、ある程度PC知識がないときつそうな。  
 (´・ω・｀)らんらんは豚だから難しいことはわからないよ  
 
-## ファイル構成
+## ダウンロード
+.exeのダウンロードは [リリース][4ca603dd] ページからzipファイルをどうぞ。
+
+  [4ca603dd]: https://github.com/SabaNyam/SabaRaider/releases "リリース"
+
+## 主要なファイル
 - SabaRaider.exe  
  (´・ω・｀)オイラはらんらん！  
 - RaidBattleList.csv  
@@ -42,9 +48,6 @@ Pythonの実行環境とTwitterの自前APIKeyが必要で、ある程度PC知�
 - userInfo.config(本アプリの中で作成される)  
 Twitterへのアクセスキー情報  
 やったねたえちゃん！認証がスキップできるよ！    
-- readme.md
-- image/*  
-こ↑れ↓
 
 ## 使用方法
 ### 0.SabaRaider.exeをダブルクリックで起動
