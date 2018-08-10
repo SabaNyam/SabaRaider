@@ -14,6 +14,7 @@
 	- [エラー落ち豚](#エラー落ち豚)
 	- [マルチバトル追加のやり方](#マルチバトル追加のやり方)
 	- [作った豚小屋の住所](#作った豚小屋の住所)
+	- [ライセンス](#ライセンス)
 
 <!-- /TOC -->
 
@@ -109,3 +110,90 @@ Twitterへのアクセスキー情報
 Twitter: S4bamiS0  
 きくうしID: 6746908  
 (´・ω・｀)ガバガバエラーでても許して？  
+
+## ライセンス
+ - SabaRaiderはMITライセンスです。LICENSEを参照してください。
+ - ソリューション内で利用しているMITライセンスのパッケージは以下の通りです。
+
+KanColleViewerのUIに憧れてMetroRadianceを使用させて頂きました！
+
+ | パッケージ      	| ライセンス  	|
+ |:-----------------	|:-------------	|
+ | CoreTweet       	| MIT License 	|
+ | Newtonsoft.Json 	| MIT License 	|
+ | MetroRadiance   	| MIT License 	|
+
+以下に条文を示します。
+
+CoreTweet
+> The MIT License (MIT)
+>
+> CoreTweet - A .NET Twitter Library supporting Twitter API 1.1
+> Copyright (c) 2014 lambdalice
+>
+> Permission is hereby granted, free of charge, to any person obtaining a copy
+> of this software and associated documentation files (the "Software"), to deal
+> in the Software without restriction, including without limitation the rights
+> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+> copies of the Software, and to permit persons to whom the Software is
+> furnished to do so, subject to the following conditions:
+>
+> The above copyright notice and this permission notice shall be included in
+> all copies or substantial portions of the Software.
+>
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+> THE SOFTWARE.
+
+----
+
+Newtonsoft.Json
+>The MIT License (MIT)
+>
+>Copyright (c) 2007 James Newton-King
+>
+>Permission is hereby granted, free of charge, to any person obtaining a copy of
+>this software and associated documentation files (the "Software"), to deal in
+>the Software without restriction, including without limitation the rights to
+>use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+>the Software, and to permit persons to whom the Software is furnished to do so,
+>subject to the following conditions:
+>
+>The above copyright notice and this permission notice shall be included in all
+>copies or substantial portions of the Software.
+>
+>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+>FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+>COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+>IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+>CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+----
+
+MetroRadiance
+>The MIT License (MIT)
+>
+>Copyright (c) 2014 Manato KAMEYA
+>
+>Permission is hereby granted, free of charge, to any person obtaining a copy
+>of this software and associated documentation files (the "Software"), to deal
+>in the Software without restriction, including without limitation the rights
+>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+>copies of the Software, and to permit persons to whom the Software is
+>furnished to do so, subject to the following conditions:
+>
+>The above copyright notice and this permission notice shall be included in all
+>copies or substantial portions of the Software.
+>
+>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+>SOFTWARE.
