@@ -73,7 +73,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Label x:Name="TweetInfo" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="White" Height="26" Width="300" RenderTransformOrigin="0.675,1.725" Content="" VerticalAlignment="Top" FontSize="14"/>
+            <Label x:Name="TweetInfo" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="White" Height="26" Width="330" RenderTransformOrigin="0.675,1.725" Content="" VerticalAlignment="Top" FontSize="13"/>
             <controls:ResizeGrip Grid.Column="1" />
         </Grid>
     </Grid>
