@@ -61,6 +61,14 @@ namespace SabaRaider
                             Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
                             Dispatcher.Invoke(() => Clipboard.SetText(raidId));
                         }
+                        else if(0 <= status.Text.IndexOf("Battle ID"))
+                        {
+                            // comment xxxxxxxx :Battle ID I need Backup! Lvl～
+                            string raidId = status.Text.Substring(status.Text.IndexOf("Battle ID") - 10, 8);
+                            Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
+                            Dispatcher.Invoke(() => Clipboard.SetText(raidId));
+                        }
+
                     },
                     // onError
                     ex => {
@@ -204,9 +212,11 @@ namespace SabaRaider
                 if (String.IsNullOrWhiteSpace(RaidCombo.SelectedValue.ToString()))
                     return;
 
+                string trackStr = String.Concat("参加者募集！ ", RaidCombo.SelectedValue.ToString(), ",", "I need backup! ", RaidCombo.SelectedValue.ToString() );
+
                 var param = new Dictionary<string, string>
                 {
-                    { "track", "参加者募集！ " + RaidCombo.SelectedValue.ToString() }
+                    { "track", trackStr }
                 };
 
                 // TwitterからのStreamingMessageを発行するIObservable
