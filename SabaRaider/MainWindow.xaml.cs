@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows;
@@ -35,53 +34,9 @@ namespace SabaRaider
         // ストリーミング接続
         private IDisposable StreamingConnection = null;
 
-        // 救援ツイートに関するIObservableとIObserverを実装するSubject
-        private readonly Subject<StreamingMessage> raidSubject = new Subject<StreamingMessage>();
-
-        // 救援ツイートに関するIObservable
-        private IObservable<StreamingMessage> raidObservable => raidSubject.AsObservable();
-
         public MainWindow()
         {
             InitializeComponent();
-
-            raidObservable
-                .SubscribeOn(ThreadPoolScheduler.Instance)
-                .Subscribe(
-                    // onNext
-                    m =>
-                    {
-                        var status = (m as StatusMessage).Status;
-
-                        // 参戦IDを取得
-                        if (0 <= status.Text.IndexOf("参戦ID"))
-                        {
-                            // comment xxxxxxxx :参戦ID 参加者募集！ Lv～
-                            string raidId = status.Text.Substring(status.Text.IndexOf("参戦ID") - 10, 8);
-                            Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
-                            Dispatcher.Invoke(() => Clipboard.SetText(raidId));
-                        }
-                        else if(0 <= status.Text.IndexOf("Battle ID"))
-                        {
-                            // comment xxxxxxxx :Battle ID I need Backup! Lvl～
-                            string raidId = status.Text.Substring(status.Text.IndexOf("Battle ID") - 10, 8);
-                            Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
-                            Dispatcher.Invoke(() => Clipboard.SetText(raidId));
-                        }
-
-                    },
-                    // onError
-                    ex => {
-                        if(ex.Message.Contains("Exceeded connection limit for user"))
-                        {
-                            Dispatcher.Invoke(() => MessageBox.Show("API制限によりツイートを読み込めませんでした。\n時間を置いてから接続し直してください。") );
-                            Dispatcher.Invoke(() => this.Close());
-                        }
-                    },
-                    // onCompleted
-                    () => {
-
-                    });
         }
 
         // ロード
@@ -228,7 +183,25 @@ namespace SabaRaider
                     .Catch(
                         (Exception ex) => iObservable.DelaySubscription(TimeSpan.FromSeconds(5)).Retry(1))
                     .Repeat()
-                    .Subscribe(x => raidSubject.OnNext(x), ex => raidSubject.OnError(ex), () => raidSubject.OnCompleted());
+                    .Subscribe(x => {
+                        var status = (x as StatusMessage).Status;
+
+                        // 参戦IDを取得
+                        if (0 <= status.Text.IndexOf("参戦ID"))
+                        {
+                            // comment xxxxxxxx :参戦ID 参加者募集！ Lv～
+                            string raidId = status.Text.Substring(status.Text.IndexOf("参戦ID") - 10, 8);
+                            Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
+                            Dispatcher.Invoke(() => Clipboard.SetText(raidId));
+                        }
+                        else if (0 <= status.Text.IndexOf("Battle ID"))
+                        {
+                            // comment xxxxxxxx :Battle ID I need Backup! Lvl～
+                            string raidId = status.Text.Substring(status.Text.IndexOf("Battle ID") - 10, 8);
+                            Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
+                            Dispatcher.Invoke(() => Clipboard.SetText(raidId));
+                        }
+                    });
 
                 RaidPanel.IsEnabled = false;
                 RaidCombo.IsEnabled = false;
@@ -236,17 +209,9 @@ namespace SabaRaider
                 // AccentColor変更
                 ThemeService.Current.ChangeAccent(Accent.Orange);
             }
-            catch (CoreTweet.TwitterException ex)
+            catch (Exception)
             {
-                raidSubject.OnError(ex);
-            }
-            catch (NotImplementedException e)
-            {
-                Dispatcher.Invoke(() => TweetInfo.Content = e.Message);
-            }
-            catch (Exception e)
-            {
-                Dispatcher.Invoke(() => TweetInfo.Content = e.Message);
+                this.StopStreaming();
             }
         }
 
