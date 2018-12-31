@@ -1,0 +1,175 @@
+﻿<metro:MetroWindow 
+    x:Class="SabaRaider_ReDive.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Title="SabaRaider" 
+    FontFamily="Meiryo UI"
+    Background="{DynamicResource ThemeBrushKey}"
+    UseLayoutRounding="True"
+    TextOptions.TextFormattingMode="Display" 
+    Icon="/oira.ico" 
+    WindowStyle="None"
+    Height="350" Width="600" 
+    ContentRendered="MetroWindow_ContentRendered">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="45" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <metro:CaptionIcon Grid.Column="0">
+                    <Image  Width="30" Height="30" Source="/oira.ico" Stretch="Fill"/>
+                </metro:CaptionIcon>
+                <TextBlock Grid.Column="1"
+                           Text="SabaRaider"
+                           TextTrimming="CharacterEllipsis" 
+                           Foreground="{DynamicResource ForegroundBrushKey}" 
+                           FontFamily="Segoe UI Light" FontSize="18"
+                           Margin="5,10,0,10" VerticalAlignment="Center"/>
+
+                <metro:SystemButtons Grid.Column="3" VerticalAlignment="Top" Height="30" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="55"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock
+                       Text="連携TwitterID: "
+                       Foreground="{DynamicResource ForegroundBrushKey}" 
+                       FontFamily="Segoe UI Light" FontSize="14"/>
+                <TextBlock
+                       Text="{Binding CoopTwitterID.Value}"
+                       Foreground="{DynamicResource ForegroundBrushKey}" 
+                       FontFamily="Segoe UI Light" FontSize="14"/>
+            </StackPanel>
+
+            <Button Grid.Row="0" Grid.Column="1" Content="Twitter認証画面を開く" 
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="OpenAuthWindow"/>
+
+            <ComboBox Grid.Row="1" Grid.Column="0"
+                      x:Name="RaidCombo"
+                      Text="{Binding SearchText.Value, Mode=TwoWay}"
+                      materialDesign:HintAssist.Hint="Select Multi Battle"
+                      ItemsSource="{Binding MultiBattles}"
+                      SelectedValue="{Binding SelectedID.Value, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="BattleID"
+                      DisplayMemberPath="DisplayBattleName"
+                      IsEditable="True"
+                      materialDesign:ValidationAssist.Suppress="True"
+                      materialDesign:ValidationAssist.OnlyShowOnFocus="True"
+                      FontSize="16"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                      Margin="5 0">
+
+            </ComboBox>
+
+            <StackPanel Grid.Row="2" Grid.Column="0"
+                        Orientation="Horizontal"
+                        Width="220" Height="100"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel>
+                    <Label Content="タイマー"
+                           FontSize="14"/>
+                    <TextBlock 
+                        Text="{Binding RaidTime.Value, UpdateSourceTrigger=PropertyChanged}"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        FontSize="30"/>
+                </StackPanel>
+                <Button Click="ClearTimer"
+                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Height="60">
+                    <Image Source="/Resources/clearAll.png" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="50" Height="50"/>
+                </Button>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"
+                  Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Content="オイラガチャ" FontSize="16"/>
+                <Image Grid.Row="1" Grid.Column="1" 
+                       x:Name="OiraImage" Source="/Resources/oirastamp.png"/>
+            </Grid>
+
+            <Button Grid.Row="3" Grid.Column="0"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="RaiderOFF" Height="50">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="取得終了" VerticalAlignment="Center" FontSize="18"/>
+                    <Image Source="/Resources/otu.png" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="50" Height="50" Margin="10 0"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Row="3" Grid.Column="1"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="RaiderON" Height="50">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="取得開始" VerticalAlignment="Center" FontSize="18"/>
+                    <Image Source="/Resources/ojyama.png" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="50" Height="50" Margin="10 0"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+        
+        <Grid Grid.Row="2" Background="{DynamicResource AccentBrushKey}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="TweetInfo" 
+                   HorizontalAlignment="Left" Margin="10,0,0,0"
+                   Content="" FontSize="16"/>
+            <metro:ResizeGrip Grid.Column="4" />
+        </Grid>
+
+    </Grid>
+</metro:MetroWindow>
