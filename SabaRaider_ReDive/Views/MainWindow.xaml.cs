@@ -225,13 +225,13 @@ namespace SabaRaider_ReDive.Views
                     this.OiraImage.Source = new BitmapImage(new Uri(@"/Resources/oira5.jpg", UriKind.Relative));
                     break;
                 case 5:
-                    this.OiraImage.Source = new BitmapImage(new Uri("@/Resources/oira6.jpg", UriKind.Relative));
+                    this.OiraImage.Source = new BitmapImage(new Uri(@"/Resources/oira6.jpg", UriKind.Relative));
                     break;
                 case 6:
-                    this.OiraImage.Source = new BitmapImage(new Uri("@/Resources/oira7.jpg", UriKind.Relative));
+                    this.OiraImage.Source = new BitmapImage(new Uri(@"/Resources/oira7.jpg", UriKind.Relative));
                     break;
                 case 7:
-                    this.OiraImage.Source = new BitmapImage(new Uri("@/Resources/oira8.jpg", UriKind.Relative));
+                    this.OiraImage.Source = new BitmapImage(new Uri(@"/Resources/oira8.jpg", UriKind.Relative));
                     break;
             }
         }
