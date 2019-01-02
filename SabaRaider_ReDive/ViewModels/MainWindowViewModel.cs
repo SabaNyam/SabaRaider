@@ -24,16 +24,17 @@ namespace SabaRaider_ReDive.ViewModels
 
         public MainWindowViewModel()
         {
+            // リスト取得
             MultiBattleList = MultiBattle.GetMultiBattles();
             MultiBattles = new ObservableCollection<MultiBattle>(MultiBattleList);
 
+            // 入力値からリスト検索
             SearchText.Subscribe(x => {
                 var search = MultiBattleList.Where(s => s.DisplayBattleName.Contains(x)).FirstOrDefault();
-                if (search != null) {
-                    SelectedID.Value = search.BattleID;
-                }
+                SelectedID.Value = string.IsNullOrWhiteSpace(x) ? 0 : search != null ? search.BattleID : 0;
             }).AddTo(Disposable);
             
+            // タイマー制御
             RaidTimer = new ReactiveTimer(TimeSpan.FromSeconds(1));
             RaidTimer.Subscribe(x => {
                 var span = new TimeSpan(0, 0, (int)x);
