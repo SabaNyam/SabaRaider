@@ -141,11 +141,11 @@ namespace SabaRaider_ReDive.Views
                 // TwitterからのStreamingMessageを発行するIObservable
                 IObservable<StreamingMessage> iObservable = tokens.Streaming.FilterAsObservable(param);
 
-                // raidSubjectへと救援ツイートを発行
+                // StreamingConnection
                 StreamingConnection = iObservable
                     .SubscribeOn(NewThreadScheduler.Default)
                     .Catch(
-                        (Exception ex) => iObservable.DelaySubscription(TimeSpan.FromSeconds(5)).Retry(1))
+                        (Exception ex) => iObservable.DelaySubscription(TimeSpan.FromSeconds(3)).Retry())
                     .Repeat()
                     .Subscribe(x => {
                         var status = (x as StatusMessage).Status;
