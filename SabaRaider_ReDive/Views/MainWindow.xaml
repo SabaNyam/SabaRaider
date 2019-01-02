@@ -62,18 +62,36 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0"
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Click="OpenGitHub"
+                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Margin="10 0" Padding="0">
+                    <materialDesign:PackIcon Kind="GithubCircle"
+                                             Foreground="White"
+                                         Width="30" Height="30"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                </Button>
+
+                <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock
+                    <TextBlock
                        Text="連携TwitterID: "
                        Foreground="{DynamicResource ForegroundBrushKey}" 
                        FontFamily="Segoe UI Light" FontSize="14"/>
-                <TextBlock
+                    <TextBlock
                        Text="{Binding CoopTwitterID.Value}"
                        Foreground="{DynamicResource ForegroundBrushKey}" 
                        FontFamily="Segoe UI Light" FontSize="14"/>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
 
             <Button Grid.Row="0" Grid.Column="1" Content="Twitter認証画面を開く" 
                     Style="{StaticResource MaterialDesignFlatButton}"

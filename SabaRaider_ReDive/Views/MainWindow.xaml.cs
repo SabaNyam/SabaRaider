@@ -245,5 +245,10 @@ namespace SabaRaider_ReDive.Views
             }
             return BitConverter.ToInt32(bs, 0);
         }
+
+        private void OpenGitHub(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://github.com/SabaNyam/SabaRaider");
+        }
     }
 }
