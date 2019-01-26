@@ -166,19 +166,35 @@ namespace SabaRaider_ReDive.Views
 
                         // 参戦IDを取得
                         string raidId = string.Empty;
-                        if (0 <= status.Text.IndexOf("参戦ID"))
+                        bool isTrue = false;
+                        if (0 <= status.Text.LastIndexOf("参戦ID"))
                         {
-                            // comment xxxxxxxx :参戦ID 参加者募集！ Lv～
-                            raidId = status.Text.Substring(status.Text.IndexOf("参戦ID") - 10, 8);
+                            // 末尾側の参戦IDよりも後ろに検索対象文字があるか
+                            if (status.Text.LastIndexOf("参戦ID") < status.Text.LastIndexOf(battleInfo.BattleNameJP))
+                            {
+                                // comment xxxxxxxx :参戦ID 参加者募集！ Lv～
+                                raidId = status.Text.Substring(status.Text.LastIndexOf("参戦ID") - 10, 8);
+                                isTrue = true;
+                            }
                         }
                         else if (0 <= status.Text.IndexOf("Battle ID"))
                         {
-                            // comment xxxxxxxx :Battle ID I need Backup! Lvl～
-                            raidId = status.Text.Substring(status.Text.IndexOf("Battle ID") - 10, 8);
+                            // 末尾側の参戦IDよりも後ろに検索対象文字があるか
+                            if (status.Text.LastIndexOf("Battle ID") < status.Text.LastIndexOf(battleInfo.BattleNameEn))
+                            {
+                                // comment xxxxxxxx :Battle ID I need Backup! Lvl～
+                                raidId = status.Text.Substring(status.Text.LastIndexOf("Battle ID") - 10, 8);
+                                isTrue = true;
+                            }
                         }
 
-                        Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
-                        Dispatcher.Invoke(() => Clipboard.SetText(raidId));
+                        // 参戦IDが取得できて、偽装ではないとき
+                        if(!string.IsNullOrWhiteSpace(raidId) && isTrue)
+                        {
+                            Dispatcher.Invoke(() => TweetInfo.Content = String.Concat(raidId, "  ", "@", status.User.ScreenName, "  ", status.CreatedAt.AddHours(9).ToString("HH:mm:ss")));
+                            Dispatcher.Invoke(() => Clipboard.SetText(raidId));
+                        }
+                        
                     });
 
                 this.RandomOira();
