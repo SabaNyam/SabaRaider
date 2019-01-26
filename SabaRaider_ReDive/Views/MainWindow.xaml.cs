@@ -131,7 +131,21 @@ namespace SabaRaider_ReDive.Views
                 var battleInfo = vm.MultiBattleList.Where(x => x.BattleID == vm.SelectedID.Value).FirstOrDefault();
                 if (battleInfo == null) return;
 
-                string trackStr = String.Concat("参加者募集！ ", battleInfo.BattleNameJP.ToString(), ",", "I need backup! ", battleInfo.BattleNameEn.ToString());
+                string trackStr = string.Empty;
+                if (!string.IsNullOrWhiteSpace(battleInfo.BattleNameJP.ToString()))
+                {
+                    if (string.IsNullOrWhiteSpace(trackStr))
+                        trackStr += String.Concat("参加者募集！ ", battleInfo.BattleNameJP.ToString());
+                    else
+                        trackStr += "," + String.Concat("参加者募集！ ", battleInfo.BattleNameJP.ToString());
+                }
+                if (!string.IsNullOrWhiteSpace(battleInfo.BattleNameEn.ToString()))
+                {
+                    if (string.IsNullOrWhiteSpace(trackStr))
+                        trackStr += String.Concat("I need backup! ", battleInfo.BattleNameEn.ToString());
+                    else
+                        trackStr += "," + String.Concat("I need backup! ", battleInfo.BattleNameEn.ToString());
+                }
 
                 var param = new Dictionary<string, string>
                 {
